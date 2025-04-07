@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panier</title>
+    <link rel="stylesheet" href="/assets/css/Index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Panier</h1>
+      <nav>
+        <ul>
+          <li><a href="Index.html">Accueil</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="panier-body"></tbody>
+      </table>
+    </main>
+
+    <script>
+      const panier = JSON.parse(localStorage.getItem("panier"));
+
+      if (panier) {
+        const total = (panier.prix * panier.quantite).toFixed(2);
+        const row = `
+        <tr>
+          <td>${panier.titre}</td>
+          <td>${panier.prix}€</td>
+          <td>${panier.quantite}</td>
+          <td>${total}€</td>
+        </tr>
+      `;
+        document.getElementById("panier-body").innerHTML = row;
+      }
+    </script>
+  </body>
+</html>

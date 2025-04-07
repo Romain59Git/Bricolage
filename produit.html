@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Détail Produit</title>
+    <link rel="stylesheet" href="/assets/css/Index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Détail du Produit</h1>
+      <nav>
+        <ul>
+          <li><a href="/assets/Index.html">Accueil</a></li>
+          <li><a href="/assets/panier.html">Panier</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="product-detail">
+      <img id="product-img" src="" alt="" />
+      <h2 id="product-title"></h2>
+      <p id="product-price"></p>
+      <p id="product-description"></p>
+
+      <label for="quantity">Quantité :</label>
+      <select id="quantity">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+
+      <button id="add-to-cart">Ajouter au panier</button>
+    </main>
+
+    <script>
+      const produits = {
+        1: {
+          titre: "Perceuse Bosch",
+          prix: 79.99,
+          image: "/assets/img/Perceuse.jpg",
+          description:
+            "La perceuse Bosch est un outil électrique polyvalent...",
+        },
+        2: {
+          titre: "Scie Circulaire",
+          prix: 99.99,
+          image: "/assets/img/Scie.jpg",
+          description:
+            "La scie circulaire est parfaite pour des coupes nettes...",
+        },
+        3: {
+          titre: "Ponceuse Bosch",
+          prix: 59.99,
+          image: "/assets/img/ponceuse.jpg",
+          description: "Idéale pour poncer rapidement toutes vos surfaces.",
+        },
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const produit = produits[id];
+
+      if (produit) {
+        document.getElementById("product-img").src = produit.image;
+        document.getElementById("product-img").alt = produit.titre;
+        document.getElementById("product-title").textContent = produit.titre;
+        document.getElementById("product-price").textContent =
+          produit.prix + "€";
+        document.getElementById("product-description").textContent =
+          produit.description;
+
+        document.getElementById("add-to-cart").addEventListener("click", () => {
+          const quantite = document.getElementById("quantity").value;
+          const data = {
+            titre: produit.titre,
+            prix: produit.prix,
+            quantite: parseInt(quantite),
+          };
+          localStorage.setItem("panier", JSON.stringify(data));
+          window.location.href = "panier.html";
+        });
+      }
+    </script>
+  </body>
+</html>
